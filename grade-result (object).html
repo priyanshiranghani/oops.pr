@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Grade</title>
+</head>
+<body>
+
+<div>
+    <label>Physics: <input type="number" id="physics"></label><br><br>
+    <label>Chemistry: <input type="number" id="chemistry"></label><br><br>
+    <label>Biology: <input type="number" id="biology"></label><br><br>
+    <label>Mathematics: <input type="number" id="mathematics"></label><br><br>
+    <label>Computer: <input type="number" id="computer"></label><br><br>
+    <button onclick="calculateResults()">Calculate</button><br>
+</div>
+
+<p id="result"></p>
+
+<script>
+class Student {
+    constructor(physics, chemistry, biology, mathematics, computer) {
+        this.physics = physics;
+        this.chemistry = chemistry;
+        this.biology = biology;
+        this.mathematics = mathematics;
+        this.computer = computer;
+    }
+
+    calculatePercentage() {
+        const totalMarks = this.physics + this.chemistry + this.biology + this.mathematics + this.computer;
+        const percentage = (totalMarks / 5.0);
+        return percentage;
+    }
+
+    calculateGrade() {
+        const percentage = this.calculatePercentage();
+        let grade;
+
+        if (percentage >= 90) {
+            grade = 'A';
+        } else if (percentage >= 80) {
+            grade = 'B';
+        } else if (percentage >= 70) {
+            grade = 'C';
+        } else if (percentage >= 60) {
+            grade = 'D';
+        } else if (percentage >= 40) {
+            grade = 'E';
+        } else {
+            grade = 'F';
+        }
+
+        return { percentage: percentage.toFixed(2), grade: grade };
+    }
+}
+
+function calculateResults() {
+    const physics = parseInt(document.getElementById('physics').value);
+    const chemistry = parseInt(document.getElementById('chemistry').value);
+    const biology = parseInt(document.getElementById('biology').value);
+    const mathematics = parseInt(document.getElementById('mathematics').value);
+    const computer = parseInt(document.getElementById('computer').value);
+
+    const student = new Student(physics, chemistry, biology, mathematics, computer);
+    const result = student.calculateGrade();
+
+    document.getElementById('result').textContent = `Percentage = ${result.percentage}%\nGrade = ${result.grade}`;
+}
+</script>
+
+</body>
+</html>
